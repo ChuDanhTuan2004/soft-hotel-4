@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hotel Rooms</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <!--navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Logo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Room
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">All rooms</a>
+                        <a class="dropdown-item" href="#">Booked rooms</a>
+                        <a class="dropdown-item" href="#">Available rooms</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Account</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--    -->
+    <h1>Hotel Rooms</h1>
+    <!-- ... -->
+    <form class="form-inline mb-3">
+        <input type="text" class="form-control mr-2" placeholder="Search by ID">
+        <select class="form-control mr-2">
+            <option value="">Select Type</option>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+            <!-- Thêm các tùy chọn khác tương ứng với loại phòng -->
+        </select>
+        <input type="number" class="form-control mr-2" placeholder="Search by Price">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+            <!--            <th>Photo</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop through the rooms -->
+        <tr th:each="room : ${rooms}">
+            <td th:text="${room.id}"></td>
+            <td th:text="${room.roomType}"></td>
+            <td th:text="${room.roomPrice}"></td>
+            <td th:text="${room.isBooked ? 'Booked' : 'Available'}"></td>
+            <td>
+                <a th:href="@{/rooms/edit/__${room.id}__}">
+                    <!--                    <i class="far fa-pen"></i>-->
+                    edit
+                </a>
+                <a th:href="@{/rooms/delete/__${room.id}__}">
+                    <!--                    <i class="far fa-trash-alt"></i>-->
+                    delete
+                </a>
+            </td>
+
+            <!--            <td>-->
+            <!--                &lt;!&ndash; Display room photo (if available) &ndash;&gt;-->
+            <!--                &lt;!&ndash;/*@thymesVar id="getBytes" type=""*/&ndash;&gt;-->
+            <!--                <img th:if="${room.photo != null}" th:src="@{'data:image/jpeg;base64,'-->
+            <!--                + ${#strings.arrayToBase64(room.photo.getBytes(1, (int) room.photo.length()))}}"-->
+            <!--                     alt="Room Photo" width="100">-->
+            <!--            </td>-->
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
